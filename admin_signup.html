@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: url('images/login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            align-items: center;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 350px;
+        }
+        fieldset {
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        legend {
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<form id="registrationForm" action="admin.php" method="post" onsubmit="return validateForm()">
+    <fieldset>
+        <legend>Admin Information:</legend>
+
+        <label for="name">Enter name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Enter E-mail</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="id">Enter University registration number</label>
+        <input type="text" id="id" name="id" required>
+
+        <label for="position">Enter the position</label>
+        <select id="position" name="position" required>
+            <option value="">Select a position</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="HOD">HOD</option>
+            <option value="developer">Developer</option>
+            <option value="director">Director</option>
+            <option value="organizer">Organizer</option>
+        </select>
+
+        <label for="pass1">Enter Password</label>
+        <input type="password" id="pass1" name="pass1" required>
+
+        <label for="pass2">Re-enter Password</label>
+        <input type="password" id="pass2" name="pass2" required>
+
+        <input type="submit" value="Submit">
+    </fieldset>
+</form>
+
+<script>
+function validateForm() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const id = document.getElementById("id").value.trim();
+    const position = document.getElementById("position").value;
+    const pass1 = document.getElementById("pass1").value;
+    const pass2 = document.getElementById("pass2").value;
+
+    // Check if fields are empty
+    if (!name || !email || !id || !position || !pass1 || !pass2) {
+        alert("⚠️ Please fill in all fields before submitting.");
+        return false; // ❌ stop form submission
+    }
+
+    // Check password match
+    if (pass1 !== pass2) {
+        alert("❌ Passwords do not match. Please re-enter!");
+        document.getElementById("pass1").value = "";
+        document.getElementById("pass2").value = "";
+        return false; // ❌ stop form submission
+    }
+
+    // If everything is fine
+    alert("✅ Registration successful! Submitting...");
+    return true; // ✅ allow form to submit to admin.php
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNI-EVENT-ZONE</title>
+
+  <style>
+    header {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 50px;
+      font-weight: bold;
+    }
+    body {
+      background: url('images/itum1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      color: #ffffff;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+    h1{
+        color: #f00c0c;
+      text-align: center;
+      text-transform: uppercase;
+        margin-top: 40px;
+
+    }
+    .event-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 40px;
+    }
+    .event-card {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    .event-card h3 {
+      margin: 10px 0;
+      color: #ffcc00;
+    }
+    .register-btn {
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .register-btn:hover {
+      background-color: #e6b800;
+    }
+    footer {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .modal-content {
+      background-color: #222;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 40%;
+      color: #fff;
+    }
+    .modal-content h2 {
+      color: #ffcc00;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 95%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>WELCOME TO UNI-EVENT-ZONE</header>
+  <h1>Upcoming Events</h1>
+
+  <div class="event-container" id="eventList">
+    <!-- Events from fetch_events.php will be loaded here -->
+  </div>
+
+  <footer>© 2025 UNI-EVENT-ZONE | User View Panel</footer>
+
+  <!-- Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Register for Event</h2>
+      <form action="register.php" method="POST" onsubmit="return confirm('Confirm Registration?')">
+  <input type="hidden" id="modal_event_id" name="event_id">
+  <input type="text" name="contact_number" placeholder="Contact Number" required>
+  <button type="submit" class="register-btn">Submit</button>
+</form>
+    </div>
+  </div>
+
+  <script>
+    // Fetch and display events
+    fetch('fetch_event.php')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('eventList').innerHTML = data;
+      });
+
+    function openModal(eventId) {
+      document.getElementById('modal_event_id').value = eventId;
+      document.getElementById('registerModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('registerModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
