@@ -1,0 +1,6 @@
+/vendor/
+/node_modules/
+*.env
+*.log
+/.vscode/
+/_pycache_/
